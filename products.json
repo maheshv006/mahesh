@@ -5,7 +5,7 @@
     "price": 12999,
     "category": "Necklaces",
     "image": "images/product1.svg",
-    "description": "Handcrafted 22K gold–inspired filigree pendant on a delicate chain. Perfect for weddings and festive wear.",
+    "description": "Handcrafted gold-tone filigree with pearl accents — ideal for weddings and festive wear.",
     "featured": true
   },
   {
@@ -14,7 +14,7 @@
     "price": 4599,
     "category": "Earrings",
     "image": "images/product2.svg",
-    "description": "Lustrous freshwater pearls with a subtle gold-tone setting. Lightweight and comfortable for all-day wear.",
+    "description": "Lustrous pearls in a classic drop style with delicate gold detailing.",
     "featured": true
   },
   {
@@ -23,7 +23,7 @@
     "price": 3499,
     "category": "Rings",
     "image": "images/product3.svg",
-    "description": "Traditional kundan-style centerpiece with intricate detailing. Adjustable band for a comfortable fit.",
+    "description": "Traditional kundan look with rich colour — adjustable band for comfort.",
     "featured": true
   },
   {
@@ -32,25 +32,25 @@
     "price": 8999,
     "category": "Bangles",
     "image": "images/product4.svg",
-    "description": "Set of two carved temple-design bangles. Rich antique finish for a timeless South Indian look.",
+    "description": "Pair of carved temple-style bangles with antique gold finish.",
     "featured": true
   },
   {
     "id": 5,
-    "name": "Diamond-Look Tennis Bracelet",
+    "name": "Mangalsutra Set",
     "price": 5999,
-    "category": "Bracelets",
+    "category": "Necklaces",
     "image": "images/product5.svg",
-    "description": "Sparkling cubic zirconia in a classic tennis layout. Secure clasp and box packaging included.",
+    "description": "Black-bead mangalsutra with gold accents — classic bridal elegance.",
     "featured": true
   },
   {
     "id": 6,
-    "name": "Minimal Gold Chain",
+    "name": "Maang Tikka & Earring Set",
     "price": 7999,
-    "category": "Necklaces",
+    "category": "Earrings",
     "image": "images/product6.svg",
-    "description": "Sleek everyday chain in a warm gold tone. Layer it or wear solo for understated elegance.",
+    "description": "Matching forehead ornament and earrings with pearls and stones for special occasions.",
     "featured": false
   },
   {
@@ -59,16 +59,16 @@
     "price": 2199,
     "category": "Earrings",
     "image": "images/product2.svg",
-    "description": "Petite floral studs with crystal accents. Ideal for office wear and casual outings.",
+    "description": "Petite floral studs with crystal accents — light for daily wear.",
     "featured": false
   },
   {
     "id": 8,
-    "name": "Heritage Nose Pin",
+    "name": "Heritage Nose Pin (Nath)",
     "price": 1299,
     "category": "Rings",
     "image": "images/product3.svg",
-    "description": "Clip-on heritage-style nose pin with a single stone. No piercing required.",
+    "description": "Clip-on heritage-style nath with pearl and stone work — no piercing needed.",
     "featured": false
   }
 ]

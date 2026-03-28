@@ -1,5 +1,5 @@
 /**
- * Shree Jewelry — site behavior
+ * Sangam Gemstone — site behavior
  * -------------------------------------------
  * 1) WhatsApp: edit WHATSAPP_NUMBER (country code + digits only).
  * 2) Products:
@@ -9,7 +9,7 @@
  */
 
 // ========== CONFIG — update for your business ==========
-const WHATSAPP_NUMBER = "919876543210"; // Example: India +91 98765 43210 → 919876543210
+const WHATSAPP_NUMBER = "918080087432"; // +91 80800 87432 → 918080087432 (digits only)
 
 /** "file" = products.json in the repo | "web" = Google Apps Script URL below */
 const PRODUCTS_FROM = "file";

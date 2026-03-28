@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Shree Jewelry — elegant handcrafted jewelry for every occasion. Browse necklaces, earrings, rings, and more. Order easily via WhatsApp."
+      content="Sangam Gemstone — traditional Indian jewellery, pearls & gemstones. Order your dream jewellery at affordable prices. Custom designs on WhatsApp."
     />
-    <title>Shree Jewelry | Elegant Designs for Every Occasion</title>
+    <title>Sangam Gemstone | Order Your Dream Jewellery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -19,7 +19,7 @@
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a href="index.html" class="nav__brand">Shree <span>Jewelry</span></a>
+        <a href="index.html" class="nav__brand">Sangam <span>Gemstone</span></a>
         <button
           type="button"
           class="nav__toggle"
@@ -42,18 +42,55 @@
     <main>
       <section class="hero" aria-labelledby="hero-heading">
         <div class="hero__inner">
-          <p class="hero__eyebrow">Since tradition meets today</p>
-          <h1 id="hero-heading">Shree Jewelry</h1>
-          <p class="hero__tagline">Elegant Designs for Every Occasion</p>
-          <a href="products.html" class="btn btn--primary hero__cta">View Collection</a>
+          <!-- Add your circular logo PNG to images/sangam-logo.png (from your brand photo) -->
+          <img
+            class="hero__logo"
+            src="images/sangam-logo.png"
+            alt="Sangam Gemstone — gold and pearl Indian jewellery logo"
+            width="260"
+            height="260"
+            loading="eager"
+            onerror="this.remove()"
+          />
+          <p class="hero__script">Order your dream jewellery</p>
+          <h1 id="hero-heading">Sangam Gemstone</h1>
+          <p class="hero__tagline">With affordable range</p>
+          <p class="hero__tagline hero__tagline--small">
+            We also customise jewellery as per your design — chat with us on WhatsApp.
+          </p>
+          <a href="products.html" class="btn btn--primary hero__cta">View collection</a>
         </div>
       </section>
 
+      <!-- Optional: add your green-banner flyer as images/sangam-banner.png -->
+      <div class="brand-banner" id="brand-banner-block" hidden>
+        <div class="brand-banner__frame">
+          <img
+            src="images/sangam-banner.png"
+            alt="Sangam Gemstone — traditional necklaces, earrings and mangalsutra"
+            width="900"
+            height="420"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <script>
+        (function () {
+          var el = document.getElementById("brand-banner-block");
+          var img = new Image();
+          img.onload = function () {
+            el.hidden = false;
+          };
+          img.onerror = function () {};
+          img.src = "images/sangam-banner.png";
+        })();
+      </script>
+
       <section class="section section--alt" aria-labelledby="featured-heading">
         <div class="container">
-          <h2 id="featured-heading" class="section__title">Featured Pieces</h2>
+          <h2 id="featured-heading" class="section__title">Featured pieces</h2>
           <p class="section__subtitle">
-            A curated selection of our most loved designs. Tap to order on WhatsApp.
+            A glimpse of our collection — tap WhatsApp on any piece to order or ask questions.
           </p>
           <div id="featured-products" class="products-grid">
             <p class="loading-msg" role="status">Loading collection…</p>
@@ -66,33 +103,32 @@
 
       <section class="section" aria-labelledby="why-heading">
         <div class="container">
-          <h2 id="why-heading" class="section__title">Why Choose Us</h2>
+          <h2 id="why-heading" class="section__title">Why Sangam Gemstone</h2>
           <p class="section__subtitle">
-            We focus on quality, craftsmanship, and a shopping experience you can trust.
+            Quality traditional work, fair pricing, and personal service on every order.
           </p>
           <div class="why-grid">
             <article class="why-card">
               <div class="why-card__icon" aria-hidden="true">✦</div>
-              <h3>Quality Materials</h3>
+              <h3>Trusted quality</h3>
               <p>
-                Carefully sourced metals and stones so every piece feels substantial and
-                looks beautiful for years.
+                Fine pearls, stones, and gold-tone craftsmanship suited for weddings, festivals,
+                and daily elegance.
               </p>
             </article>
             <article class="why-card">
               <div class="why-card__icon" aria-hidden="true">◇</div>
-              <h3>Handmade Touch</h3>
+              <h3>Affordable range</h3>
               <p>
-                Many designs are finished or assembled by hand, giving you character you
-                will not find in mass-market jewelry.
+                Beautiful pieces at prices that respect your budget — ask us for options anytime.
               </p>
             </article>
             <article class="why-card">
               <div class="why-card__icon" aria-hidden="true">♥</div>
-              <h3>Trusted Service</h3>
+              <h3>Custom designs</h3>
               <p>
-                Order directly on WhatsApp, ask questions anytime, and get honest guidance
-                on sizing and care.
+                Share your idea on WhatsApp — we work with you to customise jewellery the way you
+                want.
               </p>
             </article>
           </div>
@@ -104,20 +140,20 @@
       <div class="container">
         <div class="footer__grid">
           <div>
-            <p class="footer__title">Shree Jewelry</p>
-            <p>Elegant designs for weddings, festivals, and everyday sparkle.</p>
+            <p class="footer__title">Sangam Gemstone</p>
+            <p>Traditional Indian jewellery — pearls, gemstones, and custom orders.</p>
           </div>
           <div>
             <p class="footer__title">Contact</p>
             <p>
               Phone:
-              <a href="tel:+919876543210">+91 98765 43210</a>
+              <a href="tel:+918080087432">+91 80800 87432</a>
             </p>
             <p class="mt-1">
               <a
                 href="#"
                 class="btn btn--whatsapp js-footer-whatsapp"
-                data-message="Hello, I would like to know more about Shree Jewelry."
+                data-message="Hello, I would like to know more about Sangam Gemstone."
                 >Chat on WhatsApp</a
               >
             </p>
@@ -125,11 +161,11 @@
           <div>
             <p class="footer__title">Quick links</p>
             <p><a href="products.html">All products</a></p>
-            <p><a href="contact.html">Contact &amp; about</a></p>
+            <p><a href="contact.html">Contact</a></p>
           </div>
         </div>
         <div class="footer__bottom">
-          <p>&copy; <span id="year"></span> Shree Jewelry. All rights reserved.</p>
+          <p>&copy; <span id="year"></span> Sangam Gemstone. All rights reserved.</p>
         </div>
       </div>
     </footer>

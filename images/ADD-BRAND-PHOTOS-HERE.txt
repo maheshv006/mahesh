@@ -1,0 +1,16 @@
+SANGAM GEMSTONE — add your brand pictures
+=========================================
+
+1) LOGO (black circle with jewellery) — save as:
+   sangam-logo.png
+   Put this file in THIS folder (images).
+
+2) GREEN BANNER FLYER (collage of jewellery) — save as:
+   sangam-banner.png
+   Same folder.
+
+After saving, refresh your website. The home page will show the logo in the hero
+and the banner below it.
+
+To use YOUR product photos: upload to imgbb.com (or similar), copy the direct
+https link, and paste it as the "image" value in products.json (or your Google Sheet).
