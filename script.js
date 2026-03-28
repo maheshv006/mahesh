@@ -1,13 +1,24 @@
 /**
  * Shree Jewelry — site behavior
  * -------------------------------------------
- * 1) Change WhatsApp: edit WHATSAPP_NUMBER below (country code + number, no + or spaces).
- * 2) Products load from products.json via fetch — use a local server or GitHub Pages
- *    (opening index.html as file:// may block fetch in some browsers).
+ * 1) WhatsApp: edit WHATSAPP_NUMBER (country code + digits only).
+ * 2) Products:
+ *    - PRODUCTS_FROM "file" → loads products.json from your site (GitHub).
+ *    - PRODUCTS_FROM "web"  → loads JSON from PRODUCTS_WEB_URL (Google Sheet via
+ *      Apps Script). Then you edit the Sheet + image links only — see google-apps-script.txt
  */
 
 // ========== CONFIG — update for your business ==========
 const WHATSAPP_NUMBER = "919876543210"; // Example: India +91 98765 43210 → 919876543210
+
+/** "file" = products.json in the repo | "web" = Google Apps Script URL below */
+const PRODUCTS_FROM = "file";
+
+/**
+ * Paste your Web App URL here when PRODUCTS_FROM is "web"
+ * (from Google Apps Script → Deploy → Web app → ends with /exec)
+ */
+const PRODUCTS_WEB_URL = "";
 
 /**
  * Builds a WhatsApp click URL with an encoded pre-filled message.
@@ -37,15 +48,76 @@ function formatRupee(amount) {
   return "₹" + Number(amount).toLocaleString("en-IN");
 }
 
-/** Fetch products once; cache for the session */
+/** Fetch products once per page load; cache for the session */
 let productsCache = null;
+
+/**
+ * Turn sheet/API rows into the shape the site expects.
+ * image may be a full https URL or a path like images/x.svg
+ */
+function normalizeProducts(list) {
+  if (!Array.isArray(list)) return [];
+  return list.map(function (p, i) {
+    var price = p.price;
+    if (typeof price === "string") price = price.replace(/,/g, "");
+    var featured = p.featured;
+    if (typeof featured === "string") {
+      featured = featured.toUpperCase() === "TRUE" || featured === "1";
+    }
+    return {
+      id: Number(p.id) || i + 1,
+      name: String(p.name || "").trim(),
+      price: Number(price) || 0,
+      category: String(p.category || "Jewelry").trim(),
+      image: String(p.image || "").trim(),
+      description: String(p.description || "").trim(),
+      featured: Boolean(featured),
+    };
+  }).filter(function (p) {
+    return p.name.length > 0;
+  });
+}
 
 async function loadProducts() {
   if (productsCache) return productsCache;
-  const res = await fetch("products.json");
-  if (!res.ok) throw new Error("Could not load products.json");
-  productsCache = await res.json();
+
+  var useWeb =
+    PRODUCTS_FROM === "web" &&
+    typeof PRODUCTS_WEB_URL === "string" &&
+    PRODUCTS_WEB_URL.indexOf("http") === 0;
+
+  if (PRODUCTS_FROM === "web" && !useWeb) {
+    console.warn("PRODUCTS_FROM is \"web\" but PRODUCTS_WEB_URL is empty — using products.json.");
+  }
+
+  var url = useWeb ? PRODUCTS_WEB_URL : "products.json";
+  var res = await fetch(url);
+  if (!res.ok) throw new Error("Could not load products from: " + url);
+
+  var data = await res.json();
+  productsCache = normalizeProducts(data);
   return productsCache;
+}
+
+/**
+ * Image URL for <img src>. Full https URLs pass through. Relative paths resolve
+ * from the current page folder (fixes GitHub Pages project URLs like /mahesh/).
+ * Leading "/" in JSON would wrongly hit site root — we strip it and resolve from the page directory.
+ */
+function resolveProductImageUrl(path) {
+  var p = String(path || "").trim();
+  if (!p) return "";
+  if (/^https?:\/\//i.test(p)) return p;
+  var dir = window.location.pathname;
+  if (!dir.endsWith("/")) {
+    dir = dir.substring(0, dir.lastIndexOf("/") + 1);
+  }
+  var base = window.location.origin + (dir || "/");
+  try {
+    return new URL(p.replace(/^\//, ""), base).href;
+  } catch (e) {
+    return p;
+  }
 }
 
 /**
@@ -57,12 +129,13 @@ function createProductCard(product) {
   const alt =
     product.name + " — " + (product.description || "").slice(0, 80);
   const category = product.category || "Jewelry";
+  const imgSrc = resolveProductImageUrl(product.image);
 
   return (
     '<article class="product-card">' +
     '<div class="product-card__image-wrap">' +
     '<img src="' +
-    escapeHtml(product.image) +
+    escapeHtml(imgSrc) +
     '" alt="' +
     escapeHtml(alt) +
     '" width="400" height="400" loading="lazy" />' +

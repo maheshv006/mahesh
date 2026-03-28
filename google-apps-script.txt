@@ -1,0 +1,119 @@
+================================================================================
+GOOGLE SHEET + APPS SCRIPT — update prices & images without GitHub
+================================================================================
+
+WHAT THIS DOES
+  Your website can load products from a Google Sheet. You edit the sheet in
+  your browser; images use links from free hosts (ImgBB, etc.). No repo needed
+  for day-to-day updates.
+
+--------------------------------------------------------------------------------
+STEP 1 — Create the Google Sheet
+--------------------------------------------------------------------------------
+  1. Go to https://sheets.google.com and create a new spreadsheet.
+  2. Name the first tab exactly: Products
+  3. Row 1 (headers), columns A–G:
+
+       id | name | price | category | image | description | featured
+
+  4. Row 2+ = one product per row.
+
+  Example row:
+    id: 1
+    name: Gold Filigree Necklace
+    price: 12999
+    category: Necklaces
+    image: https://i.ibb.co/xxxxxx/photo.jpg
+    description: Handcrafted necklace for festive wear.
+    featured: TRUE          (or FALSE — use capitals TRUE/FALSE)
+
+  IMAGE COLUMN:
+    Paste a full link starting with https://
+    Upload photos at https://imgbb.com (free) → "Direct link" → paste in sheet.
+
+--------------------------------------------------------------------------------
+STEP 2 — Add the script
+--------------------------------------------------------------------------------
+  1. In the spreadsheet: Extensions → Apps Script
+  2. Delete any code in the editor.
+  3. Paste the CODE block from the bottom of this file.
+  4. Save (disk icon). Name the project anything (e.g. ShreeJewelryAPI).
+  5. Click Deploy → New deployment
+  6. Click the gear (settings) next to "Select type" → Web app
+  7. Fill in:
+       Execute as: Me
+       Who has access: Anyone
+  8. Deploy → Authorize → choose Google account → Advanced → Go to ... (unsafe)
+     → Allow
+  9. Copy the Web app URL (ends with /exec)
+
+--------------------------------------------------------------------------------
+STEP 3 — Connect your website
+--------------------------------------------------------------------------------
+  1. Open script.js on your computer.
+  2. Set:
+       const PRODUCTS_FROM = "web";
+       const PRODUCTS_WEB_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+  3. Save, commit, push to GitHub (only this one-time code change, or when you
+     change the URL).
+
+  If PRODUCTS_FROM stays "file", the site keeps using products.json as before.
+
+--------------------------------------------------------------------------------
+NOTES
+--------------------------------------------------------------------------------
+  • First request after deploy can be slow (cold start).
+  • Google quotas apply; a small catalog is fine.
+  • Do not share the sheet publicly if you want prices private; only the script
+    “Anyone” link exposes JSON — keep that URL off public posts if worried.
+  • If the site shows old data: hard refresh (Ctrl+F5).
+
+================================================================================
+CODE — paste into Apps Script editor (replace all default code)
+================================================================================
+
+function doGet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Products");
+  if (!sheet) {
+    return jsonOut([]);
+  }
+  var data = sheet.getDataRange().getValues();
+  if (data.length < 2) {
+    return jsonOut([]);
+  }
+  var headers = [];
+  for (var c = 0; c < data[0].length; c++) {
+    headers.push(String(data[0][c]).trim().toLowerCase().replace(/\s+/g, "_"));
+  }
+  var out = [];
+  for (var r = 1; r < data.length; r++) {
+    var row = {};
+    for (var c = 0; c < headers.length; c++) {
+      row[headers[c]] = data[r][c];
+    }
+    var name = String(row.name || "").trim();
+    if (!name) continue;
+    var feat = row.featured;
+    var featured = false;
+    if (typeof feat === "boolean") featured = feat;
+    else if (String(feat).toUpperCase() === "TRUE" || String(feat) === "1") featured = true;
+
+    out.push({
+      id: Number(row.id) || (r + 1),
+      name: name,
+      price: Number(row.price) || 0,
+      category: String(row.category || "Jewelry").trim(),
+      image: String(row.image || "").trim(),
+      description: String(row.description || "").trim(),
+      featured: featured
+    });
+  }
+  return jsonOut(out);
+}
+
+function jsonOut(arr) {
+  return ContentService
+    .createTextOutput(JSON.stringify(arr))
+    .setMimeType(ContentService.MimeType.JSON);
+}
