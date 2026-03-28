@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'none'; object-src 'none'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; form-action 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests"
     />
     <meta
       name="description"
@@ -39,7 +45,7 @@
         <ul id="nav-menu" class="nav__links">
           <li><a href="index.html">Home</a></li>
           <li><a href="products.html">Products</a></li>
-          <li><a href="contact.html" class="is-active">Contact</a></li>
+          <li><a href="contact.html?r=9" class="is-active">Contact</a></li>
         </ul>
       </div>
     </header>
@@ -111,6 +117,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=8" defer></script>
+    <script src="script.js?v=9" defer></script>
   </body>
 </html>
