@@ -31,7 +31,7 @@
 
       <div class="admin-note">
         <strong>How updates reach customers</strong><br />
-        This page is for you only. After you change prices or image links, click
+        This page is for you only. After you change prices or photos, click
         <strong>Download products.json</strong> and upload that file to your GitHub repository
         (replace the old <code>products.json</code>), then push — then everyone sees the new
         catalogue.<br /><br />
@@ -80,7 +80,8 @@
                 <th>Name</th>
                 <th>Price (₹)</th>
                 <th>Category</th>
-                <th>Image URL or path</th>
+                <th>Upload from computer</th>
+                <th>Image (auto-filled or link)</th>
                 <th>Description</th>
                 <th>Featured</th>
                 <th></th>
@@ -91,8 +92,10 @@
         </div>
 
         <p class="admin-note" style="text-align: center; margin-top: 0">
-          Image: use <code>images/yourphoto.jpg</code> (after uploading to GitHub) or a full link like
-          <code>https://i.ibb.co/...</code> from ImgBB.
+          <strong>Photos:</strong> click <strong>Choose photo</strong> to pick a file from your device
+          (it is embedded in <code>products.json</code>). Or paste a path like
+          <code>images/photo.jpg</code> or an ImgBB <code>https://...</code> link in the image box.
+          Keep photos reasonably small so the JSON file is not too large for GitHub or your browser.
         </p>
       </div>
     </div>

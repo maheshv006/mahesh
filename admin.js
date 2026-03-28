@@ -2,12 +2,18 @@
  * Owner admin — edit catalogue (prices, images, text).
  * Login is only casual protection (credentials are visible in this file).
  * For everyone to see changes: use "Download products.json" and replace the file on GitHub.
+ *
+ * Local image upload: files are embedded as base64 (data URLs) in products.json.
+ * Use reasonably small photos (under ~1 MB each) so the file fits GitHub and browser storage.
  */
 (function () {
   var STORAGE_KEY = "sangam_products_override";
   var SESSION_KEY = "sangam_admin_session";
   var ADMIN_USER = "MVPATIL";
   var ADMIN_PASS = "006";
+  var MAX_FILE_MB = 2.5;
+  var MAX_DIMENSION = 1000;
+  var JPEG_QUALITY = 0.88;
 
   var loginEl = document.getElementById("admin-login");
   var panelEl = document.getElementById("admin-panel");
@@ -76,12 +82,94 @@
     return String(s)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  /** Resize JPEG/PNG/WebP to save space; keep SVG/GIF as-is. */
+  function processImageFile(file, done) {
+    if (file.size > MAX_FILE_MB * 1024 * 1024) {
+      alert("File is larger than " + MAX_FILE_MB + " MB. Please choose a smaller image.");
+      done(null);
+      return;
+    }
+    if (!file.type || file.type.indexOf("image/") !== 0) {
+      alert("Please choose an image file.");
+      done(null);
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function () {
+      var raw = reader.result;
+      if (file.type === "image/svg+xml" || file.type === "image/gif") {
+        done(raw);
+        return;
+      }
+      var img = new Image();
+      img.onload = function () {
+        var w = img.width;
+        var h = img.height;
+        var scale = Math.min(1, MAX_DIMENSION / Math.max(w, h));
+        var nw = Math.max(1, Math.round(w * scale));
+        var nh = Math.max(1, Math.round(h * scale));
+        var cv = document.createElement("canvas");
+        cv.width = nw;
+        cv.height = nh;
+        var ctx = cv.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, nw, nh);
+        ctx.drawImage(img, 0, 0, nw, nh);
+        try {
+          done(cv.toDataURL("image/jpeg", JPEG_QUALITY));
+        } catch (err) {
+          done(raw);
+        }
+      };
+      img.onerror = function () {
+        done(raw);
+      };
+      img.src = raw;
+    };
+    reader.onerror = function () {
+      alert("Could not read that file.");
+      done(null);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function updatePreview(tr, src) {
+    var prev = tr.querySelector(".admin-preview");
+    if (!prev) return;
+    if (!src || !String(src).trim()) {
+      prev.innerHTML = "";
+      return;
+    }
+    prev.innerHTML =
+      '<img src="' + esc(String(src)) + '" alt="Preview" width="72" height="72" loading="lazy" />';
+  }
+
+  function bindRowHandlers() {
+    tbody.querySelectorAll(".inp-file").forEach(function (fileInp) {
+      fileInp.addEventListener("change", function () {
+        var tr = fileInp.closest("tr");
+        var ta = tr.querySelector(".inp-image");
+        var f = fileInp.files && fileInp.files[0];
+        fileInp.value = "";
+        if (!f || !tr || !ta) return;
+        processImageFile(f, function (dataUrl) {
+          if (!dataUrl) return;
+          ta.value = dataUrl;
+          updatePreview(tr, dataUrl);
+        });
+      });
+    });
   }
 
   function renderRows(products) {
     tbody.innerHTML = products
       .map(function (p, i) {
+        var imgVal = esc(p.image);
         return (
           "<tr data-idx='" +
           i +
@@ -98,10 +186,17 @@
           "<td><input type='text' class='inp-category' value=\"" +
           esc(p.category) +
           "\" /></td>" +
-          "<td><input type='text' class='inp-image' value=\"" +
-          esc(p.image) +
-          "\" placeholder='images/photo.jpg or https://...' /></td>" +
-          "<td><textarea class='inp-desc' rows='2'>" +
+          "<td class='admin-upload-cell'>" +
+          "<label class='admin-file-btn'>" +
+          "<input type='file' class='inp-file' accept='image/jpeg,image/png,image/gif,image/webp,image/svg+xml' />" +
+          "<span>Choose photo</span>" +
+          "</label>" +
+          "<div class='admin-preview'></div>" +
+          "</td>" +
+          "<td><textarea class='inp-image' rows='4' placeholder='Choose a photo above, or type images/photo.jpg or https://...'>" +
+          imgVal +
+          "</textarea></td>" +
+          "<td><textarea class='inp-desc' rows='3'>" +
           esc(p.description) +
           "</textarea></td>" +
           "<td style='text-align:center'><input type='checkbox' class='inp-featured' " +
@@ -115,6 +210,11 @@
       })
       .join("");
 
+    tbody.querySelectorAll("tr").forEach(function (tr) {
+      var ta = tr.querySelector(".inp-image");
+      if (ta && ta.value.trim()) updatePreview(tr, ta.value.trim());
+    });
+
     tbody.querySelectorAll(".admin-del").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var idx = parseInt(btn.getAttribute("data-del"), 10);
@@ -123,6 +223,8 @@
         renderRows(rows.length ? rows : [emptyProduct(1)]);
       });
     });
+
+    bindRowHandlers();
   }
 
   function emptyProduct(id) {
@@ -131,7 +233,7 @@
       name: "",
       price: 0,
       category: "Jewelry",
-      image: "images/product1.svg",
+      image: "",
       description: "",
       featured: false,
     };
@@ -228,7 +330,9 @@
         "Saved in this browser only. Open Home/Products here to preview. Other people still see GitHub until you upload the file."
       );
     } catch (e) {
-      alert("Could not save (storage full or blocked).");
+      alert(
+        "Could not save — catalogue may be too large for this browser. Try fewer/smaller photos or use Download only."
+      );
     }
   });
 

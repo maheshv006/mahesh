@@ -124,6 +124,8 @@ async function loadProducts() {
 function resolveProductImageUrl(path) {
   var p = String(path || "").trim();
   if (!p) return "";
+  /* Embedded image from admin "upload from computer" */
+  if (/^data:image\//i.test(p)) return p;
   if (/^https?:\/\//i.test(p)) return p;
   var dir = window.location.pathname;
   if (!dir.endsWith("/")) {
@@ -147,15 +149,18 @@ function createProductCard(product) {
     product.name + " — " + (product.description || "").slice(0, 80);
   const category = product.category || "Jewelry";
   const imgSrc = resolveProductImageUrl(product.image);
+  const imgBlock = imgSrc
+    ? '<img src="' +
+      escapeHtml(imgSrc) +
+      '" alt="' +
+      escapeHtml(alt) +
+      '" width="400" height="400" loading="lazy" />'
+    : '<span class="product-card__placeholder">Add a photo in Owner admin</span>';
 
   return (
     '<article class="product-card">' +
     '<div class="product-card__image-wrap">' +
-    '<img src="' +
-    escapeHtml(imgSrc) +
-    '" alt="' +
-    escapeHtml(alt) +
-    '" width="400" height="400" loading="lazy" />' +
+    imgBlock +
     "</div>" +
     '<div class="product-card__body">' +
     '<p class="product-card__category">' +
