@@ -49,7 +49,8 @@ function formatRupee(amount) {
 }
 
 /** Same key as admin.js — if set, shop uses this instead of products.json (this device only). */
-var PRODUCTS_LOCAL_KEY = "sangam_products_override";
+/* Bumped so older “Save in this browser” data stops hiding the live GitHub catalogue. */
+var PRODUCTS_LOCAL_KEY = "sangam_products_override_v2";
 
 /** Fetch products once per page load; cache for the session */
 let productsCache = null;
@@ -108,7 +109,7 @@ async function loadProducts() {
   }
 
   var url = useWeb ? PRODUCTS_WEB_URL : "products.json";
-  var res = await fetch(url);
+  var res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error("Could not load products from: " + url);
 
   var data = await res.json();

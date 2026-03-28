@@ -14,7 +14,7 @@
  * Then set PASSWORD_HASH_HEX below. You may change EXPECTED_USER too (and include new name in $t).
  */
 (function () {
-  var STORAGE_KEY = "sangam_products_override";
+  var STORAGE_KEY = "sangam_products_override_v2";
   var SESSION_KEY = "sangam_admin_session";
   var EXPECTED_USER = "MVPATIL";
   /* Hash of UTF-8 "MVPATIL:006" */
