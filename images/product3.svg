@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Placeholder  Ring product image">
+  <defs>
+    <radialGradient id="bg3" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" style="stop-color:#fff9f0"/>
+      <stop offset="100%" style="stop-color:#e5dfd4"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0e6c8"/>
+      <stop offset="100%" style="stop-color:#b8941e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg3)"/>
+  <ellipse cx="200" cy="210" rx="95" ry="38" fill="none" stroke="url(#ring)" stroke-width="14"/>
+  <circle cx="200" cy="200" r="14" fill="#fdf8ff" stroke="#c9a227" stroke-width="2"/>
+  <text x="200" y="360" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#6b6560">Replace with your photo</text>
+</svg>

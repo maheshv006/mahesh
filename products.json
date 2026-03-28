@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Gold Filigree Necklace",
+    "price": 12999,
+    "category": "Necklaces",
+    "image": "images/product1.svg",
+    "description": "Handcrafted 22K gold–inspired filigree pendant on a delicate chain. Perfect for weddings and festive wear.",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "Pearl Drop Earrings",
+    "price": 4599,
+    "category": "Earrings",
+    "image": "images/product2.svg",
+    "description": "Lustrous freshwater pearls with a subtle gold-tone setting. Lightweight and comfortable for all-day wear.",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "name": "Kundan Statement Ring",
+    "price": 3499,
+    "category": "Rings",
+    "image": "images/product3.svg",
+    "description": "Traditional kundan-style centerpiece with intricate detailing. Adjustable band for a comfortable fit.",
+    "featured": true
+  },
+  {
+    "id": 4,
+    "name": "Temple Gold Bangle Set",
+    "price": 8999,
+    "category": "Bangles",
+    "image": "images/product4.svg",
+    "description": "Set of two carved temple-design bangles. Rich antique finish for a timeless South Indian look.",
+    "featured": true
+  },
+  {
+    "id": 5,
+    "name": "Diamond-Look Tennis Bracelet",
+    "price": 5999,
+    "category": "Bracelets",
+    "image": "images/product5.svg",
+    "description": "Sparkling cubic zirconia in a classic tennis layout. Secure clasp and box packaging included.",
+    "featured": true
+  },
+  {
+    "id": 6,
+    "name": "Minimal Gold Chain",
+    "price": 7999,
+    "category": "Necklaces",
+    "image": "images/product6.svg",
+    "description": "Sleek everyday chain in a warm gold tone. Layer it or wear solo for understated elegance.",
+    "featured": false
+  },
+  {
+    "id": 7,
+    "name": "Floral Stud Earrings",
+    "price": 2199,
+    "category": "Earrings",
+    "image": "images/product2.svg",
+    "description": "Petite floral studs with crystal accents. Ideal for office wear and casual outings.",
+    "featured": false
+  },
+  {
+    "id": 8,
+    "name": "Heritage Nose Pin",
+    "price": 1299,
+    "category": "Rings",
+    "image": "images/product3.svg",
+    "description": "Clip-on heritage-style nose pin with a single stone. No piercing required.",
+    "featured": false
+  }
+]

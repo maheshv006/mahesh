@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Placeholder  Bracelet product image">
+  <defs>
+    <linearGradient id="bg5" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#ebe4d8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg5)"/>
+  <g fill="#e8f4fc" stroke="#c9a227" stroke-width="2">
+    <circle cx="95" cy="200" r="11"/>
+    <circle cx="125" cy="200" r="11"/>
+    <circle cx="155" cy="200" r="11"/>
+    <circle cx="185" cy="200" r="11"/>
+    <circle cx="215" cy="200" r="11"/>
+    <circle cx="245" cy="200" r="11"/>
+    <circle cx="275" cy="200" r="11"/>
+    <circle cx="305" cy="200" r="11"/>
+  </g>
+  <path d="M85 200 L315 200" stroke="#9a7b1a" stroke-width="3" fill="none" opacity="0.4"/>
+  <text x="200" y="360" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#6b6560">Replace with your photo</text>
+</svg>

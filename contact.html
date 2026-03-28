@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contact Shree Jewelry for custom designs, sizing help, or orders. Reach us by phone or WhatsApp."
+    />
+    <title>Contact Us | Shree Jewelry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="nav__brand">Shree <span>Jewelry</span></a>
+        <button
+          type="button"
+          class="nav__toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Open menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul id="nav-menu" class="nav__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="contact.html" class="is-active">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <section class="contact-hero">
+        <div class="container">
+          <h1>Contact Shree Jewelry</h1>
+          <p class="section__subtitle" style="margin-bottom: 0">
+            Contact us for custom jewelry designs, bulk orders, or any questions about our
+            collection.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0">
+        <div class="container">
+          <div class="contact-card">
+            <h2 class="section__title" style="margin-bottom: 0.5rem">Get in touch</h2>
+            <p>
+              <strong>Phone:</strong>
+              <a href="tel:+919876543210">+91 98765 43210</a>
+            </p>
+            <p>
+              <a
+                id="contact-whatsapp-btn"
+                href="#"
+                class="btn btn--whatsapp"
+                data-message="Hello, I am interested in custom jewelry from Shree Jewelry."
+                >Message us on WhatsApp</a
+              >
+            </p>
+          </div>
+
+          <h2 class="section__title">Find us</h2>
+          <p class="section__subtitle">
+            Replace the map below with your store’s Google Maps embed (see beginner guide).
+          </p>
+          <div class="map-wrap">
+            <!-- Replace src with your Google Maps "Embed a map" iframe URL -->
+            <iframe
+              title="Shree Jewelry location map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.5956153558944!2d72.8776559!3d19.0759837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da2edbd93226165!2sMumbai!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <p class="footer__title">Shree Jewelry</p>
+            <p>Elegant designs for weddings, festivals, and everyday sparkle.</p>
+          </div>
+          <div>
+            <p class="footer__title">Contact</p>
+            <p>
+              Phone:
+              <a href="tel:+919876543210">+91 98765 43210</a>
+            </p>
+            <p class="mt-1">
+              <a
+                href="#"
+                class="btn btn--whatsapp js-footer-whatsapp"
+                data-message="Hello, I would like to know more about Shree Jewelry."
+                >Chat on WhatsApp</a
+              >
+            </p>
+          </div>
+          <div>
+            <p class="footer__title">Quick links</p>
+            <p><a href="index.html">Home</a></p>
+            <p><a href="products.html">Products</a></p>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p>&copy; <span id="year"></span> Shree Jewelry. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
