@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Owner catalogue editor for Sangam Gemstone — not for public use."
+    />
+    <title>Owner — Catalogue | Sangam Gemstone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="nav__brand">Sangam <span>Gemstone</span></a>
+        <a href="index.html" class="nav__admin-back">← Back to website</a>
+      </div>
+    </header>
+
+    <div class="admin-page container">
+      <h1 class="admin-page__title">Owner — edit catalogue</h1>
+
+      <div class="admin-note">
+        <strong>How updates reach customers</strong><br />
+        This page is for you only. After you change prices or image links, click
+        <strong>Download products.json</strong> and upload that file to your GitHub repository
+        (replace the old <code>products.json</code>), then push — then everyone sees the new
+        catalogue.<br /><br />
+        <strong>Save in this browser</strong> only previews changes on <em>this</em> phone or
+        computer; it does not change the live website for friends.<br /><br />
+        <strong>Security:</strong> Username and password in this page are not secret (anyone can
+        view the code). Use it for convenience only, not for private data.
+      </div>
+
+      <div id="admin-login" class="admin-login">
+        <form id="admin-login-form">
+          <label for="admin-user">Username</label>
+          <input id="admin-user" name="user" type="text" autocomplete="username" required />
+
+          <label for="admin-pass">Password</label>
+          <input id="admin-pass" name="pass" type="password" autocomplete="current-password" required />
+
+          <button type="submit" class="btn btn--primary">Sign in</button>
+          <p id="admin-login-error" class="admin-warn" style="color: #e8a598; margin-top: 0.75rem" hidden></p>
+          <p class="admin-warn">
+            Bookmark this page as: <strong>admin.html</strong> (do not share the link publicly if
+            you want casual visitors to stay out).
+          </p>
+        </form>
+      </div>
+
+      <div id="admin-panel" hidden>
+        <div class="admin-topbar">
+          <a href="index.html">← Back to website</a>
+          <button type="button" class="btn btn--outline btn--small" id="admin-logout">Sign out</button>
+        </div>
+
+        <div class="admin-toolbar">
+          <button type="button" class="btn btn--primary btn--small" id="admin-add-row">+ Add product</button>
+          <button type="button" class="btn btn--outline btn--small" id="admin-load-server">Load from website file</button>
+          <button type="button" class="btn btn--outline btn--small" id="admin-save-local">Save in this browser</button>
+          <button type="button" class="btn btn--primary btn--small" id="admin-download">Download products.json</button>
+          <button type="button" class="btn btn--danger btn--small" id="admin-clear-local">Remove browser save</button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price (₹)</th>
+                <th>Category</th>
+                <th>Image URL or path</th>
+                <th>Description</th>
+                <th>Featured</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="admin-rows"></tbody>
+          </table>
+        </div>
+
+        <p class="admin-note" style="text-align: center; margin-top: 0">
+          Image: use <code>images/yourphoto.jpg</code> (after uploading to GitHub) or a full link like
+          <code>https://i.ibb.co/...</code> from ImgBB.
+        </p>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

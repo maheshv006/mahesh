@@ -1,0 +1,208 @@
+/* Owner admin — matches Sangam Gemstone theme */
+.nav__admin-back {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.nav__admin-back:hover {
+  color: var(--color-gold);
+}
+
+.admin-page {
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.admin-page__title {
+  font-family: var(--font-display);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--color-gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
+
+.admin-note {
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.15rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.admin-note strong {
+  color: var(--color-gold-bright);
+}
+
+.admin-login {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-login label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.admin-login input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.admin-login input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+
+.admin-login .btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.admin-warn {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: rgba(242, 239, 232, 0.45);
+  line-height: 1.45;
+}
+
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-toolbar .btn--small {
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn--danger {
+  background: transparent;
+  color: #e8a598;
+  border: 1px solid rgba(232, 165, 152, 0.4);
+}
+
+.btn--danger:hover {
+  background: rgba(232, 165, 152, 0.1);
+  color: #ffcfc4;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg-card);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.5rem 0.45rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+  text-align: left;
+}
+
+.admin-table th {
+  color: var(--color-gold);
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.admin-table input[type="text"],
+.admin-table input[type="number"],
+.admin-table textarea {
+  width: 100%;
+  min-width: 5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+}
+
+.admin-table textarea {
+  min-height: 3.2rem;
+  resize: vertical;
+}
+
+.admin-table .inp-image {
+  min-width: 10rem;
+}
+
+.admin-table .admin-del {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid rgba(232, 165, 152, 0.35);
+  background: transparent;
+  color: #e8a598;
+}
+
+.admin-table .admin-del:hover {
+  background: rgba(232, 165, 152, 0.12);
+}
+
+.admin-table input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-gold);
+}
+
+.admin-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 1.25rem;
+}
+
+.admin-topbar a {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+#admin-panel[hidden],
+#admin-login[hidden] {
+  display: none !important;
+}

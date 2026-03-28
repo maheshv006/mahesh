@@ -48,6 +48,9 @@ function formatRupee(amount) {
   return "₹" + Number(amount).toLocaleString("en-IN");
 }
 
+/** Same key as admin.js — if set, shop uses this instead of products.json (this device only). */
+var PRODUCTS_LOCAL_KEY = "sangam_products_override";
+
 /** Fetch products once per page load; cache for the session */
 let productsCache = null;
 
@@ -80,6 +83,20 @@ function normalizeProducts(list) {
 
 async function loadProducts() {
   if (productsCache) return productsCache;
+
+  /* Owner edits saved in browser (admin panel) — only affects this browser until you upload JSON to GitHub. */
+  try {
+    var stored = localStorage.getItem(PRODUCTS_LOCAL_KEY);
+    if (stored) {
+      var parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        productsCache = normalizeProducts(parsed);
+        return productsCache;
+      }
+    }
+  } catch (e) {
+    /* ignore bad JSON */
+  }
 
   var useWeb =
     PRODUCTS_FROM === "web" &&
