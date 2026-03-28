@@ -4,7 +4,6 @@
  * For everyone to see changes: use "Download products.json" and replace the file on GitHub.
  *
  * Local image upload: files are embedded as base64 (data URLs) in products.json.
- * Use reasonably small photos (under ~1 MB each) so the file fits GitHub and browser storage.
  */
 (function () {
   var STORAGE_KEY = "sangam_products_override";
@@ -17,7 +16,7 @@
 
   var loginEl = document.getElementById("admin-login");
   var panelEl = document.getElementById("admin-panel");
-  var tbody = document.getElementById("admin-rows");
+  var listEl = document.getElementById("admin-rows");
   var errEl = document.getElementById("admin-login-error");
 
   function showError(msg) {
@@ -72,7 +71,7 @@
       }
     } catch (e) {}
 
-    var res = await fetch("products.json");
+    var res = await fetch("products.json", { cache: "no-store" });
     if (!res.ok) throw new Error("Could not load products.json");
     var data = await res.json();
     return data.map(normalizeRow);
@@ -86,7 +85,6 @@
       .replace(/"/g, "&quot;");
   }
 
-  /** Resize JPEG/PNG/WebP to save space; keep SVG/GIF as-is. */
   function processImageFile(file, done) {
     if (file.size > MAX_FILE_MB * 1024 * 1024) {
       alert("File is larger than " + MAX_FILE_MB + " MB. Please choose a smaller image.");
@@ -138,84 +136,96 @@
     reader.readAsDataURL(file);
   }
 
-  function updatePreview(tr, src) {
-    var prev = tr.querySelector(".admin-preview");
+  function updatePreview(card, src) {
+    var prev = card.querySelector(".admin-preview");
     if (!prev) return;
     if (!src || !String(src).trim()) {
       prev.innerHTML = "";
       return;
     }
     prev.innerHTML =
-      '<img src="' + esc(String(src)) + '" alt="Preview" width="72" height="72" loading="lazy" />';
+      '<img src="' + esc(String(src)) + '" alt="Preview" width="96" height="96" loading="lazy" />';
   }
 
-  function bindRowHandlers() {
-    tbody.querySelectorAll(".inp-file").forEach(function (fileInp) {
+  function bindFileInputs() {
+    listEl.querySelectorAll(".inp-file").forEach(function (fileInp) {
       fileInp.addEventListener("change", function () {
-        var tr = fileInp.closest("tr");
-        var ta = tr.querySelector(".inp-image");
+        var card = fileInp.closest(".admin-product-card");
+        var ta = card ? card.querySelector(".inp-image") : null;
         var f = fileInp.files && fileInp.files[0];
         fileInp.value = "";
-        if (!f || !tr || !ta) return;
+        if (!f || !card || !ta) return;
         processImageFile(f, function (dataUrl) {
           if (!dataUrl) return;
           ta.value = dataUrl;
-          updatePreview(tr, dataUrl);
+          updatePreview(card, dataUrl);
         });
       });
     });
   }
 
   function renderRows(products) {
-    tbody.innerHTML = products
+    listEl.innerHTML = products
       .map(function (p, i) {
         var imgVal = esc(p.image);
         return (
-          "<tr data-idx='" +
+          '<div class="admin-product-card" data-idx="' +
           i +
-          "'>" +
-          "<td><input type='number' class='inp-id' value='" +
+          '">' +
+          '<div class="admin-card__title">Product #' +
+          (i + 1) +
+          "</div>" +
+          '<div class="admin-card__fields">' +
+          '<label class="admin-field"><span class="admin-field__label">ID</span>' +
+          '<input type="number" class="inp-id" value="' +
           esc(p.id) +
-          "' min='1' /></td>" +
-          "<td><input type='text' class='inp-name' value=\"" +
+          '" min="1" /></label>' +
+          '<label class="admin-field"><span class="admin-field__label">Name</span>' +
+          '<input type="text" class="inp-name" value="' +
           esc(p.name) +
-          "\" /></td>" +
-          "<td><input type='number' class='inp-price' value='" +
+          '" /></label>' +
+          '<label class="admin-field"><span class="admin-field__label">Price (₹)</span>' +
+          '<input type="number" class="inp-price" value="' +
           esc(p.price) +
-          "' min='0' step='1' /></td>" +
-          "<td><input type='text' class='inp-category' value=\"" +
+          '" min="0" step="1" /></label>' +
+          '<label class="admin-field"><span class="admin-field__label">Category</span>' +
+          '<input type="text" class="inp-category" value="' +
           esc(p.category) +
-          "\" /></td>" +
-          "<td class='admin-upload-cell'>" +
-          "<label class='admin-file-btn'>" +
-          "<input type='file' class='inp-file' accept='image/jpeg,image/png,image/gif,image/webp,image/svg+xml' />" +
-          "<span>Choose photo</span>" +
-          "</label>" +
-          "<div class='admin-preview'></div>" +
-          "</td>" +
-          "<td><textarea class='inp-image' rows='4' placeholder='Choose a photo above, or type images/photo.jpg or https://...'>" +
+          '" /></label>' +
+          "</div>" +
+          '<div class="admin-card__upload">' +
+          '<span class="admin-field__label">Upload from gallery / camera / files</span>' +
+          '<input type="file" class="inp-file" accept="image/*" />' +
+          '<div class="admin-preview"></div>' +
+          '<span class="admin-field__label">Image data or link (auto-filled when you upload)</span>' +
+          '<textarea class="inp-image" rows="4" placeholder="Choose a file above, or paste images/photo.jpg or https://...">' +
           imgVal +
-          "</textarea></td>" +
-          "<td><textarea class='inp-desc' rows='3'>" +
+          "</textarea>" +
+          "</div>" +
+          '<label class="admin-field"><span class="admin-field__label">Description</span>' +
+          '<textarea class="inp-desc" rows="3">' +
           esc(p.description) +
-          "</textarea></td>" +
-          "<td style='text-align:center'><input type='checkbox' class='inp-featured' " +
-          (p.featured ? "checked" : "") +
-          " /></td>" +
-          "<td><button type='button' class='admin-del' data-del='" +
+          "</textarea></label>" +
+          '<label class="admin-field admin-field--inline">' +
+          '<input type="checkbox" class="inp-featured" ' +
+          (p.featured ? "checked " : "") +
+          "/>" +
+          '<span class="admin-field__label" style="text-transform:none;letter-spacing:0">Featured on home page</span>' +
+          "</label>" +
+          '<button type="button" class="admin-del btn btn--danger btn--small" data-del="' +
           i +
-          "'>Remove</button></td>" +
-          "</tr>"
+          '">Remove this product</button>' +
+          "</div>"
         );
       })
       .join("");
 
-    tbody.querySelectorAll("tr").forEach(function (tr) {
-      var ta = tr.querySelector(".inp-image");
-      if (ta && ta.value.trim()) updatePreview(tr, ta.value.trim());
+    listEl.querySelectorAll(".admin-product-card").forEach(function (card) {
+      var ta = card.querySelector(".inp-image");
+      if (ta && ta.value.trim()) updatePreview(card, ta.value.trim());
     });
 
-    tbody.querySelectorAll(".admin-del").forEach(function (btn) {
+    listEl.querySelectorAll(".admin-del").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var idx = parseInt(btn.getAttribute("data-del"), 10);
         var rows = collectFromDom();
@@ -224,7 +234,7 @@
       });
     });
 
-    bindRowHandlers();
+    bindFileInputs();
   }
 
   function emptyProduct(id) {
@@ -240,16 +250,16 @@
   }
 
   function collectFromDom() {
-    var trs = tbody.querySelectorAll("tr");
+    var cards = listEl.querySelectorAll(".admin-product-card");
     var out = [];
-    trs.forEach(function (tr, i) {
-      var id = tr.querySelector(".inp-id");
-      var name = tr.querySelector(".inp-name");
-      var price = tr.querySelector(".inp-price");
-      var cat = tr.querySelector(".inp-category");
-      var img = tr.querySelector(".inp-image");
-      var desc = tr.querySelector(".inp-desc");
-      var feat = tr.querySelector(".inp-featured");
+    cards.forEach(function (card, i) {
+      var id = card.querySelector(".inp-id");
+      var name = card.querySelector(".inp-name");
+      var price = card.querySelector(".inp-price");
+      var cat = card.querySelector(".inp-category");
+      var img = card.querySelector(".inp-image");
+      var desc = card.querySelector(".inp-desc");
+      var feat = card.querySelector(".inp-featured");
       out.push(
         normalizeRow(
           {
@@ -305,13 +315,13 @@
   });
 
   document.getElementById("admin-load-server").addEventListener("click", function () {
-    fetch("products.json")
+    fetch("products.json", { cache: "no-store" })
       .then(function (r) {
         return r.json();
       })
       .then(function (data) {
         renderRows(data.map(normalizeRow));
-        alert("Loaded data from products.json on the website (form only — not saved yet).");
+        alert("Loaded data from products.json on the website (not saved yet).");
       })
       .catch(function () {
         alert("Could not load products.json.");

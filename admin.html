@@ -72,34 +72,23 @@
           <button type="button" class="btn btn--danger btn--small" id="admin-clear-local">Remove browser save</button>
         </div>
 
-        <div class="admin-table-wrap">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price (₹)</th>
-                <th>Category</th>
-                <th>Upload from computer</th>
-                <th>Image (auto-filled or link)</th>
-                <th>Description</th>
-                <th>Featured</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="admin-rows"></tbody>
-          </table>
+        <div class="admin-card-list-wrap">
+          <p class="admin-cards-hint">
+            Each product is a card below. Use the <strong>gold “Choose image…”</strong> control to pick a
+            photo from your gallery or files (phone or PC).
+          </p>
+          <div id="admin-rows" class="admin-card-list"></div>
         </div>
 
         <p class="admin-note" style="text-align: center; margin-top: 0">
-          <strong>Photos:</strong> click <strong>Choose photo</strong> to pick a file from your device
-          (it is embedded in <code>products.json</code>). Or paste a path like
-          <code>images/photo.jpg</code> or an ImgBB <code>https://...</code> link in the image box.
-          Keep photos reasonably small so the JSON file is not too large for GitHub or your browser.
+          <strong>Photos:</strong> in each card, use the <strong>file / gallery picker</strong> (gold border)
+          to choose an image from your phone or computer. It is stored inside
+          <code>products.json</code>. You can also paste <code>images/photo.jpg</code> or an ImgBB link in
+          the text box. Keep file sizes small so GitHub and your browser stay happy.
         </p>
       </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src="admin.js?v=4"></script>
   </body>
 </html>
