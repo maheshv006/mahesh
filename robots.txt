@@ -1,0 +1,6 @@
+# Sangam Gemstone — discourage search engines from indexing the owner editor
+User-agent: *
+Disallow: /mahesh/admin.html
+
+# If the site is ever served from domain root instead of /mahesh/, block generic path too
+Disallow: /admin.html

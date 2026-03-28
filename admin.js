@@ -1,15 +1,24 @@
 /**
  * Owner admin — edit catalogue (prices, images, text).
- * Login is only casual protection (credentials are visible in this file).
- * For everyone to see changes: use "Download products.json" and replace the file on GitHub.
  *
- * Local image upload: files are embedded as base64 (data URLs) in products.json.
+ * SECURITY (important — static GitHub Pages site):
+ * - Nothing in browser JavaScript can be “fully secret”. Skilled people can read this file.
+ * - The password is stored as a SHA-256 hash (not plain text), but short passwords can still be
+ *   guessed. This is “polite lock”, not bank security.
+ * - Do not store highly sensitive data. Catalogue (prices, photos) is public by design on the shop.
+ * - For real protection of admin: edit via GitHub only, or put Cloudflare Access / similar in front
+ *   of admin.html.
+ *
+ * Change password: SHA-256 hex (lowercase), UTF-8 string = USERNAME + ":" + NEW_PASSWORD
+ *   PowerShell: $t='MVPATIL:newpass'; [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash([Text.Encoding]::UTF8.GetBytes($t))).Replace('-','').ToLowerInvariant()
+ * Then set PASSWORD_HASH_HEX below. You may change EXPECTED_USER too (and include new name in $t).
  */
 (function () {
   var STORAGE_KEY = "sangam_products_override";
   var SESSION_KEY = "sangam_admin_session";
-  var ADMIN_USER = "MVPATIL";
-  var ADMIN_PASS = "006";
+  var EXPECTED_USER = "MVPATIL";
+  /* Hash of UTF-8 "MVPATIL:006" */
+  var PASSWORD_HASH_HEX = "5d91e084ae0115bb0098bb23f555c0859fe0af6cfa466d82b39b919403df085c";
   var MAX_FILE_MB = 2.5;
   var MAX_DIMENSION = 1000;
   var JPEG_QUALITY = 0.88;
@@ -83,6 +92,35 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function bufToHex(buf) {
+    return Array.from(new Uint8Array(buf))
+      .map(function (b) {
+        return b.toString(16).padStart(2, "0");
+      })
+      .join("");
+  }
+
+  function hexEq(a, b) {
+    var x = String(a).toLowerCase();
+    var y = String(b).toLowerCase();
+    if (x.length !== y.length) return false;
+    var r = 0;
+    for (var i = 0; i < x.length; i++) {
+      r |= x.charCodeAt(i) ^ y.charCodeAt(i);
+    }
+    return r === 0;
+  }
+
+  function verifyCredentials(username, password) {
+    if ((username || "").trim() !== EXPECTED_USER) return Promise.resolve(false);
+    if (!window.crypto || !window.crypto.subtle) return Promise.resolve(false);
+    var enc = new TextEncoder();
+    var msg = EXPECTED_USER + ":" + password;
+    return crypto.subtle.digest("SHA-256", enc.encode(msg)).then(function (buf) {
+      return hexEq(bufToHex(buf), PASSWORD_HASH_HEX);
+    });
   }
 
   function processImageFile(file, done) {
@@ -293,19 +331,25 @@
     showError("");
     var u = (document.getElementById("admin-user").value || "").trim();
     var p = document.getElementById("admin-pass").value || "";
-    if (u === ADMIN_USER && p === ADMIN_PASS) {
-      setLoggedIn(true);
-      showPanel();
-      loadBaselineProducts()
-        .then(function (rows) {
-          renderRows(rows);
-        })
-        .catch(function () {
-          renderRows([emptyProduct(1)]);
-        });
-    } else {
-      showError("Wrong username or password.");
+    if (!window.crypto || !window.crypto.subtle) {
+      showError("Sign-in needs a secure context. Open your live site with https:// (GitHub Pages).");
+      return;
     }
+    verifyCredentials(u, p).then(function (ok) {
+      if (ok) {
+        setLoggedIn(true);
+        showPanel();
+        loadBaselineProducts()
+          .then(function (rows) {
+            renderRows(rows);
+          })
+          .catch(function () {
+            renderRows([emptyProduct(1)]);
+          });
+      } else {
+        showError("Wrong username or password.");
+      }
+    });
   });
 
   document.getElementById("admin-logout").addEventListener("click", function () {

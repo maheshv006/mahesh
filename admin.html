@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; form-action 'self'; upgrade-insecure-requests"
+    />
     <meta name="robots" content="noindex, nofollow" />
     <meta
       name="description"
@@ -37,8 +42,13 @@
         catalogue.<br /><br />
         <strong>Save in this browser</strong> only previews changes on <em>this</em> phone or
         computer; it does not change the live website for friends.<br /><br />
-        <strong>Security:</strong> Username and password in this page are not secret (anyone can
-        view the code). Use it for convenience only, not for private data.
+        <strong>Security (read this):</strong> This site is static hosting — there is no private
+        server login. The admin screen stops only casual visitors: a technical person can still
+        inspect the page or guess weak passwords. <strong>Do not</strong> treat it like a bank vault.
+        Do not store truly secret data here. Your public shop data (prices, photos) is meant to be
+        seen by customers. For stronger protection of admin, use something like Cloudflare Access or
+        edit <code>products.json</code> only inside GitHub — see comments at the top of
+        <code>admin.js</code>.
       </div>
 
       <div id="admin-login" class="admin-login">
@@ -89,6 +99,6 @@
       </div>
     </div>
 
-    <script src="admin.js?v=4"></script>
+    <script src="admin.js?v=5"></script>
   </body>
 </html>

@@ -321,10 +321,23 @@ function initYear() {
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
+/** Show home banner only when images/sangam-banner.png exists */
+function initBrandBanner() {
+  const el = document.getElementById("brand-banner-block");
+  if (!el) return;
+  const img = new Image();
+  img.onload = () => {
+    el.hidden = false;
+  };
+  img.onerror = () => {};
+  img.src = "images/sangam-banner.png";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initYear();
   initWhatsAppLinks();
+  initBrandBanner();
   renderFeaturedProducts();
   initProductsPage();
 });

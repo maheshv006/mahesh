@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; frame-src https://www.google.com https://maps.google.com; form-action 'self'; upgrade-insecure-requests"
+    />
     <meta
       name="description"
       content="Sangam Gemstone — traditional Indian jewellery, pearls & gemstones. Order your dream jewellery at affordable prices. Custom designs on WhatsApp."
@@ -74,17 +79,6 @@
           />
         </div>
       </div>
-      <script>
-        (function () {
-          var el = document.getElementById("brand-banner-block");
-          var img = new Image();
-          img.onload = function () {
-            el.hidden = false;
-          };
-          img.onerror = function () {};
-          img.src = "images/sangam-banner.png";
-        })();
-      </script>
 
       <section class="section section--alt" aria-labelledby="featured-heading">
         <div class="container">
