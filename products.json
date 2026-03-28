@@ -97,5 +97,77 @@
     "image": "images/catalog-nath-11.png",
     "description": "Butterfly cluster of teal and light blue teardrop gems, two crystal-studded gold beads and twin white pearls — unique daily or festive wear.",
     "featured": false
+  },
+  {
+    "id": 12,
+    "name": "Three-Strand Pearl Ear Chains (Matal)",
+    "price": 250,
+    "category": "Ear Chains",
+    "image": "images/catalog-add-01.png",
+    "description": "Elegant three-strand pearl ear chains (Matal) with gold-tone links and small elephant charms at each end. Red tie threads for a secure fit — ideal with heavy jhumkas and traditional wear.",
+    "featured": false
+  },
+  {
+    "id": 13,
+    "name": "Pearl & Floral Sheeshphool / Mathapatti",
+    "price": 450,
+    "category": "Hair Accessories",
+    "image": "images/catalog-add-02.png",
+    "description": "Traditional forehead hair ornament with three ornate gold-tone floral clusters, red gem accents and parallel pearl strands. Side chains end in deep purple teardrop beads — perfect for bridals and festivals.",
+    "featured": false
+  },
+  {
+    "id": 14,
+    "name": "Gold-Tone Nath — Blue Teardrops & White Stones",
+    "price": 250,
+    "category": "Nose Rings",
+    "image": "images/catalog-add-03.png",
+    "description": "Gold-plated Nath with vibrant blue pear-drop stones, halo of clear round stones and a textured studded bead at the base. Clip-style wire for comfortable festive wear.",
+    "featured": false
+  },
+  {
+    "id": 15,
+    "name": "Floral Pearl & Green Stone Necklace Set",
+    "price": 599,
+    "category": "Necklace Sets",
+    "image": "images/catalog-add-04.png",
+    "description": "Complete set: short choker with maroon-centre pendant and pearl-green drops, long mangalsutra-style necklace with black beads and crescent pendant, plus matching floral stud earrings with pearl dangles.",
+    "featured": false
+  },
+  {
+    "id": 16,
+    "name": "Floral Pearl Ear Cuffs — Traditional Climbers",
+    "price": 250,
+    "category": "Earrings",
+    "image": "images/catalog-add-05.png",
+    "description": "Pair of gold-tone ear cuffs with floral motifs, white teardrop pearls and green and red stones. Large red-centre flower at the base with a delicate jhumka-style pearl drop.",
+    "featured": false
+  },
+  {
+    "id": 17,
+    "name": "Floral Pearl Long Necklace Set — Maroon Centre",
+    "price": 499,
+    "category": "Necklace Sets",
+    "image": "images/catalog-add-06.png",
+    "description": "Traditional long necklace and matching earrings: linked flower motifs with white pearl petals and deep maroon centres. Stud earrings with small gold jhumka dangles — shown on bust for drape reference.",
+    "featured": false
+  },
+  {
+    "id": 18,
+    "name": "Maharashtrian Nath — Red & Green with Pearls",
+    "price": 160,
+    "category": "Nose Rings",
+    "image": "images/catalog-add-07.png",
+    "description": "Classic Maharashtrian-style Nath in gold tone: green teardrop top, twin red drops, scattered pearl accents and a clear stone-studded spherical finial.",
+    "featured": false
+  },
+  {
+    "id": 19,
+    "name": "Pearl Maang Tikka — Teardrop & Chand Crescent",
+    "price": 180,
+    "category": "Maang Tikka",
+    "image": "images/catalog-add-08.png",
+    "description": "Gold-tone Maang Tikka with large clear teardrop centre, pearl halo, crescent (Chand) panel with floral detail and pearl fringe. Pearl chain with hook for styling on the forehead.",
+    "featured": false
   }
 ]
